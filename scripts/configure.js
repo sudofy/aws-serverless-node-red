@@ -4,6 +4,7 @@
 const fs = require('fs')
 const exec = require('child_process').execSync
 const modifyFiles = require('./utils').modifyFiles
+const config = require('../config.json');
 
 let minimistHasBeenInstalled = false
 
@@ -31,12 +32,12 @@ if (minimistHasBeenInstalled) {
     exec('npm uninstall minimist --silent')
 }
 
-const accountId = args['account-id']
-const bucketName = args['bucket-name']
-const functionNameOriginal = args['function-name']
+const accountId = config['account-id'];
+const bucketName = config['bucket-name'];
+const functionNameOriginal = config['function-name'];
 const functionName = functionNameOriginal.replace(/[^A-Za-z0-9]/g, '');
-const region = args.region
-const stackName = args['stack-name']
+const region = config.region;
+const stackName = config['stack-name'];
 const availableRegions = ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-west-2', 'eu-central-1', 'ap-northeast-1', 'ap-northeast-2', 'ap-southeast-1', 'ap-southeast-2']
 
 if (!accountId || accountId.length !== 12) {

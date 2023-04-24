@@ -21,9 +21,9 @@
 module.exports = {
     // the tcp port that the Node-RED web server is listening on
     uiPort: process.env.PORT || 1880,
-    awsRegion: 'YOUR_AWS_REGION',
-    awsS3Bucket: 'YOUR_UNIQUE_BUCKET_NAME',
-    awsS3Appname: 'YOUR_LAMBDA_FUNCTION_NAME',
+    awsRegion: 'us-east-1',
+    awsS3Bucket: 'node-red-api',
+    awsS3Appname: 'node-red-api',
     storageModule: require('node-red-contrib-storage-s3'),
     // By default, the Node-RED UI accepts connections on all IPv4 interfaces.
     // The following property can be used to listen on a specific interface. For

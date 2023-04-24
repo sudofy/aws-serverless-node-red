@@ -5,7 +5,7 @@ Description: Serverless Express Application/API powered by API Gateway and Lambd
 Parameters:
   S3BUCKET:
     Type: "String"
-    Default: "YOUR_UNIQUE_BUCKET_NAME"
+    Default: "node-red-api"
 Resources:
   ApiGatewayApi:
     Type: AWS::Serverless::Api
@@ -13,7 +13,7 @@ Resources:
       DefinitionUri: ./simple-proxy-api.yaml
       StageName: prod
       Variables:
-        ServerlessExpressLambdaFunctionName: !Ref YOUR_SERVERLESS_EXPRESS_LAMBDA_FUNCTION_NAME
+        ServerlessExpressLambdaFunctionName: !Ref noderedapi
 
   LambdaExecutionRole:
     Type: AWS::IAM::Role
@@ -48,15 +48,15 @@ Resources:
           Action:
             - "s3:CreateBucket"
             - "s3:ListBucket"
-          Resource: "arn:aws:s3:::YOUR_UNIQUE_BUCKET_NAME"
+          Resource: "arn:aws:s3:::node-red-api"
         - Effect: "Allow"
           Action:
             - "s3:PutObject"
             - "s3:GetObject"
           Resource: !Join
             - '/'
-            - - "arn:aws:s3:::YOUR_UNIQUE_BUCKET_NAME"
-              - !Ref YOUR_SERVERLESS_EXPRESS_LAMBDA_FUNCTION_NAME
+            - - "arn:aws:s3:::node-red-api"
+              - !Ref noderedapi
               - '*'
       PolicyName: S3_access
       Roles:
@@ -66,7 +66,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
-      FunctionName: !GetAtt YOUR_SERVERLESS_EXPRESS_LAMBDA_FUNCTION_NAME.Arn
+      FunctionName: !GetAtt noderedapi.Arn
       Principal: apigateway.amazonaws.com
       SourceArn: !Join
         - ''
@@ -78,11 +78,11 @@ Resources:
           - !Ref ApiGatewayApi
           - "/*/*"
 
-  YOUR_SERVERLESS_EXPRESS_LAMBDA_FUNCTION_NAME:
+  noderedapi:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./
-      FunctionName: YOUR_LAMBDA_FUNCTION_NAME
+      FunctionName: node-red-api
       Handler: lambda.handler
       MemorySize: 1024
       Role: !GetAtt LambdaExecutionRole.Arn
@@ -115,7 +115,7 @@ Outputs:
         - ".console.aws.amazon.com/lambda/home?region="
         - !Ref AWS::Region
         - "#/functions/"
-        - !Ref YOUR_SERVERLESS_EXPRESS_LAMBDA_FUNCTION_NAME
+        - !Ref noderedapi
 
   ApiGatewayApiConsoleUrl:
     Description: Console URL for the API Gateway API's Stage.
