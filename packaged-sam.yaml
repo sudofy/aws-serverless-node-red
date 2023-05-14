@@ -82,7 +82,7 @@ Resources:
   noderedapi:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://node-red-api/7e1699381affb63032cac36544f579d9
+      CodeUri: s3://node-red-api/45e10d3123b794d9b3e5d15bc6c2ef56
       FunctionName: node-red-api
       Handler: lambda.handler
       MemorySize: 1024

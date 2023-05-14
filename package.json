@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "node app.local.js",
+    "dev": "node node_modules/.bin/node-red -s ./settings.js",
     "config": "node ./scripts/configure.js",
     "deconfig": "node ./scripts/deconfigure.js",
     "local": "node scripts/local",
@@ -42,7 +43,7 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "node-red": "^1.0.3",
+    "node-red": "^3.0.2",
     "node-red-contrib-storage-s3": "git://github.com/sakazuki/node-red-contrib-storage-s3.git"
   }
 }
